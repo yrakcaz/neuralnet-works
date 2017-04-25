@@ -2,7 +2,7 @@
 
 ## Multi-Layer Perceptron
 
-* Lesson element + teacher class
+* Teacher class
 * Error threshold
 * Callable reset/init func with params
 

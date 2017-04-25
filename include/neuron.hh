@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <training.hh>
 #include <list>
 #include <vector>
 #include <utility>
@@ -12,20 +13,18 @@
 
 class Neuron {
     public:
-        Neuron(int nb_inputs);
+        Neuron(int nb_inputs=2);
         virtual double compute(std::vector<double> inputs) = 0;
-        bool train(double alpha,
-                   std::list<std::pair<std::vector<double>, double>> set);
+        double learn(Lesson lesson, double alpha=0.1);
 
     protected:
         std::vector<double> weights_;
         double threshold_;
 };
 
-//FIXME change name?
-class Perceptron : public Neuron {
+class StepNeuron : public Neuron {
     public:
-        Perceptron(int nb_inputs);
+        StepNeuron(int nb_inputs=2);
         double compute(std::vector<double> inputs) override;
 };
 
