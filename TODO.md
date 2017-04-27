@@ -2,8 +2,8 @@
 
 ## Multi-Layer Perceptron
 
-* Teacher class
-* Error threshold
+* Teacher class -> JSON parse a course (prepare) + learn it to the neuron/NN!!
+
 * Callable reset/init func with params
 
 * A MLP can be represented by a list of Layer where :
@@ -18,4 +18,6 @@
 
 * FIXMEs
 
---> Github/Bitbucket this!
+* Github/Bitbucket this!
+
+* WTF the configure?? LICENCE??
