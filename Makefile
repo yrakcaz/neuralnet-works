@@ -2,7 +2,7 @@ EXE=neuralnet-works
 CXX=g++
 CXXFLAGS=-Wall -Wextra -Werror -std=c++11 -pedantic -Iinclude/
 LDFLAGS=
-SRC=src/training.cc src/neuron.cc src/main.cc
+SRC=src/training.cc src/neuron.cc src/brain.cc src/main.cc
 OBJ=$(SRC:.cc=.o)
 TAR=yrakcaz-$(EXE)
 

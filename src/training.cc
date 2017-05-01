@@ -10,7 +10,7 @@ Lesson::Lesson(std::vector<double> inputs, double output)
 {
 }
 
-std::vector<double> Lesson::inputs_get()
+std::vector<double> Lesson::inputs_get() const
 {
     return inputs_;
 }
@@ -20,7 +20,7 @@ void Lesson::inputs_set(std::vector<double> inputs)
     inputs_ = inputs;
 }
 
-double Lesson::output_get()
+double Lesson::output_get() const
 {
     return output_;
 }

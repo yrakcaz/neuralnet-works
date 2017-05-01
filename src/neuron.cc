@@ -1,6 +1,6 @@
 #include <neuron.hh>
 
-Neuron::Neuron(int nb_inputs)
+Neuron::Neuron(size_t nb_inputs)
     : weights_(nb_inputs)
 {
     //FIXME More precision in random? Use alpha?
@@ -34,9 +34,12 @@ double Neuron::learn(Lesson lesson, double alpha)
 
         return error;
     } catch (std::string e) {
-        std::cerr << e << std::endl;
-        assert(false);
+        assert(false && e.c_str());
     }
+}
+
+double Neuron::compute(std::vector<double>) {
+    assert(false && "Not implemented virtual function.");
 }
 
 #define STEP(X) (X > 0 ? 1 : 0)
