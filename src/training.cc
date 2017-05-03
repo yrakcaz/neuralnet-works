@@ -1,3 +1,6 @@
+#include <fstream>
+#include <json/json.h>
+#include <neuron.hh>
 #include <training.hh>
 
 Lesson::Lesson()
@@ -28,4 +31,77 @@ double Lesson::output_get() const
 void Lesson::output_set(double output)
 {
     output_ = output;
+}
+
+Teacher::Teacher(double tolerance)
+    : tolerance_(tolerance)
+{
+}
+
+//FIXME clean it
+void Teacher::prepare_course(std::string course)
+{
+    Json::Value root;
+    Json::Reader reader;
+
+    std::ifstream stream(course, std::ifstream::in);
+
+    if (!reader.parse(stream, root)) {
+        std::cerr  << "Failed to parse the JSON course:\n"
+                   << reader.getFormattedErrorMessages();
+        assert(false); //FIXME throw error?
+    }
+
+    const Json::Value datas = root["data"];
+    for (auto data : datas) {
+        const Json::Value inputs = data["input"];
+        std::vector<double> input_vect(inputs.size());
+        for (unsigned i = 0; i < inputs.size(); i++) {
+            input_vect[i] = inputs[i].asDouble();
+        }
+        double output = data["output"].asDouble();
+        Lesson lesson(input_vect, output);
+        course_.push_back(lesson);
+    }
+}
+
+bool Teacher::teach(Neuron* neuron) //FIXME add a timeout
+{
+    double mark;
+    do {
+        mark = 0;
+        for (auto lesson : course_) {
+            double error = neuron->learn(lesson);
+            mark += std::abs(error);
+        }
+        mark /= 4;
+    } while (mark > tolerance_);
+
+    return true; //FIXME ??
+}
+
+bool Teacher::validate(Neuron* neuron)
+{
+    bool ret = true;
+
+    for (auto lesson : course_) {
+        std::vector<double> inputs = lesson.inputs_get();
+        double output = lesson.output_get();
+        double result = neuron->compute(inputs);
+
+        if (result != output)
+            ret = false;
+
+#ifdef DEBUG
+        std::cout << "weights: ";
+        for (auto input : inputs) {
+            std::cout << input << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "expected: " << output << std::endl;
+        std::cout << "result: " << result << std::endl << std::endl;
+#endif
+    }
+
+    return ret;
 }

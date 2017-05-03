@@ -2,9 +2,11 @@
 
 ## Multi-Layer Perceptron
 
-* Teacher class -> JSON parse a course (prepare) + learn it to the neuron/NN!!
+* Fix infinit loop when trying to learn xor with perceptron.
 
-* Callable reset/init func with params
+* Assert core dump : fix it! Throw errors?
+
+* Callable reset/init func with params (Neuron)
 
 * A MLP can be represented by a list of Layer where :
         Layer(activationFct, nb_neurons);

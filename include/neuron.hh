@@ -12,6 +12,8 @@
 #include <string>
 #include <time.h>
 
+//FIXME pass a Method in parameter instead?
+
 class Neuron {
     public:
         Neuron(size_t nb_inputs=2);

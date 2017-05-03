@@ -1,45 +1,21 @@
 #include <neuron.hh>
-#include <cmath>
+#include <training.hh>
 
-int main()
+int main(int argc, char** argv)
 {
-    srand(time(NULL));
-    StepNeuron neuron;
+    if (argc == 2) {
+        srand(time(NULL)); //FIXME put this somewhere else? teacher?
 
-    double inputs[4][2] = {
-        { 0, 0 },
-        { 0, 1 },
-        { 1, 0 },
-        { 1, 1 }
-    };
-    double outputs[4] = { 0, 0, 0, 1 };
+        Teacher teacher;
+        Neuron *neuron = new StepNeuron();
 
-    double tolerance = 0;
-    double mark;
-    do {
-        std::list<Lesson> course;
-        for (int i = 0; i < 4; i++)
-            course.push_front(Lesson(std::vector<double>(inputs[i], inputs[i] + sizeof(inputs[i]) / sizeof(double)), outputs[i]));
-        mark = 0;
-        while (!course.empty()) {
-            double error = neuron.learn(course.front());
-            mark += std::abs(error);
-            course.pop_front();
-        }
-        mark /= 4;
-    } while (mark > tolerance);
-
-    for (int i = 0; i < 4; i++) {
-        std::cout << "weights: ";
-        for (int j = 0; j < 2; j++) {
-            std::cout << inputs[i][j] << " ";
-        }
-        std::cout << std::endl;
-
-        std::cout << "expected: " << outputs[i] << std::endl;
-
-        std::cout << "result: " << neuron.compute(std::vector<double>(inputs[i], inputs[i] + sizeof(inputs[i]) / sizeof(double))) << std::endl;
+        teacher.prepare_course(argv[1]);
+        teacher.teach(neuron);
+        return !teacher.validate(neuron);
     }
 
-    return 0;
+    std::cerr << argv[0] << ": invalid arguments: use "
+              << argv[0] << " <data>" << std::endl;
+
+    return 1;
 }

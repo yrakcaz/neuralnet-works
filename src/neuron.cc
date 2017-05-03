@@ -16,19 +16,15 @@ double Neuron::learn(Lesson lesson, double alpha)
 {
     try { //FIXME test it
         double error = lesson.output_get() - compute(lesson.inputs_get());
-#ifdef DEBUG
-        std::cout << "error: " << error << std::endl;
-#endif
-
         threshold_ -= alpha * error;
-#ifdef DEBUG
-        std::cout << "new threshold: " << threshold_ << std::endl;
-#endif
-
         for (size_t i = 0; i < weights_.size(); i++) {
             weights_[i] += alpha * error * lesson.inputs_get()[i];
+
 #ifdef DEBUG
-        std::cout << "new weight-" << i << ": " << weights_[i] << std::endl;
+        std::cout << "new threshold: " << threshold_ << std::endl;
+        std::cout << "error: " << error << std::endl;
+        std::cout << "new weight-" << i << ": " << weights_[i];
+        std::cout << std::endl << std::endl;
 #endif
         }
 

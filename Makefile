@@ -2,8 +2,10 @@ EXE=neuralnet-works
 CXX=g++
 CXXFLAGS=-Wall -Wextra -Werror -std=c++11 -pedantic -Iinclude/
 LDFLAGS=
+LIB=src/json/jsoncpp.cpp
 SRC=src/training.cc src/neuron.cc src/brain.cc src/main.cc
 OBJ=$(SRC:.cc=.o)
+OBJ+=$(LIB:.cpp=.o)
 TAR=yrakcaz-$(EXE)
 
 -include makefile.rules
@@ -24,8 +26,5 @@ distclean: clean
 
 export:
 	git archive HEAD --prefix=$(TAR)/ | bzip2 > $(TAR).tar.bz2
-
-run: $(EXE)
-	./$(EXE)
 
 .PHONY: all clean distclean export
