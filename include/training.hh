@@ -29,6 +29,7 @@ class Teacher {
 
         void prepare_course(std::string course);
         bool teach(Neuron* neuron);
+        bool force_teach(Neuron* neuron, int max_it=0);
         bool validate(Neuron* neuron);
 
     private:

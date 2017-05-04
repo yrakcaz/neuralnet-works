@@ -2,8 +2,6 @@
 
 ## Multi-Layer Perceptron
 
-* Fix infinit loop when trying to learn xor with perceptron.
-
 * Assert core dump : fix it! Throw errors?
 
 * Callable reset/init func with params (Neuron)

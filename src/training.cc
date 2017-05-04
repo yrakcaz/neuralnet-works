@@ -65,19 +65,26 @@ void Teacher::prepare_course(std::string course)
     }
 }
 
-bool Teacher::teach(Neuron* neuron) //FIXME add a timeout
+bool Teacher::teach(Neuron* neuron)
 {
-    double mark;
-    do {
-        mark = 0;
-        for (auto lesson : course_) {
-            double error = neuron->learn(lesson);
-            mark += std::abs(error);
-        }
-        mark /= 4;
-    } while (mark > tolerance_);
+    double moy = 0;
 
-    return true; //FIXME ??
+    for (auto lesson : course_) {
+        double error = neuron->learn(lesson);
+        moy += std::abs(error);
+    }
+    moy /= course_.size();
+
+    return moy <= tolerance_;
+}
+
+bool Teacher::force_teach(Neuron* neuron, int max_it)
+{
+    for (int i = 0; !max_it || i < max_it; i++) {
+        if (teach(neuron))
+            return true;
+    }
+    return false;
 }
 
 bool Teacher::validate(Neuron* neuron)
@@ -89,8 +96,11 @@ bool Teacher::validate(Neuron* neuron)
         double output = lesson.output_get();
         double result = neuron->compute(inputs);
 
-        if (result != output)
+        if (std::abs(result - output) > tolerance_) {
             ret = false;
+            std::cerr << "Learning failed... Try harder :p" << std::endl;
+            break;
+        }
 
 #ifdef DEBUG
         std::cout << "weights: ";
@@ -102,6 +112,9 @@ bool Teacher::validate(Neuron* neuron)
         std::cout << "result: " << result << std::endl << std::endl;
 #endif
     }
+
+    if (ret)
+        std::cout << "The learning was a success, GG WP!" << std::endl;
 
     return ret;
 }

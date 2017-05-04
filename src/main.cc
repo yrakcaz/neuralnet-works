@@ -10,7 +10,8 @@ int main(int argc, char** argv)
         Neuron *neuron = new StepNeuron();
 
         teacher.prepare_course(argv[1]);
-        teacher.teach(neuron);
+        teacher.force_teach(neuron, 50);
+
         return !teacher.validate(neuron);
     }
 

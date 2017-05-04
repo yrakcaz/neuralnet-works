@@ -1,16 +1,11 @@
 #ifndef NEURON_HH
 # define NEURON_HH
 
-//FIXME remove unused
-#include <cassert>
-#include <iostream>
-#include <training.hh>
-#include <list>
-#include <vector>
-#include <utility>
-#include <stdlib.h>
-#include <string>
-#include <time.h>
+# include <cassert>
+# include <iostream>
+# include <string>
+# include <training.hh>
+# include <vector>
 
 //FIXME pass a Method in parameter instead?
 
