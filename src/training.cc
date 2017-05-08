@@ -49,7 +49,7 @@ void Teacher::prepare_course(std::string course)
     if (!reader.parse(stream, root)) {
         std::cerr  << "Failed to parse the JSON course:\n"
                    << reader.getFormattedErrorMessages();
-        assert(false); //FIXME throw error?
+        assert(false);
     }
 
     const Json::Value datas = root["data"];

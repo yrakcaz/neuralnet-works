@@ -34,6 +34,10 @@ double Neuron::learn(Lesson lesson, double alpha)
     }
 }
 
+size_t Neuron::size_get() {
+    return weights_.size();
+}
+
 double Neuron::compute(std::vector<double>) {
     assert(false && "Not implemented virtual function.");
 }
@@ -51,10 +55,20 @@ double StepNeuron::compute(std::vector<double> inputs)
         throw std::string("Invalid input count.");
     }
 
+#if DEBUG
+    std::cout << "Weights: ";
+#endif
+
     double sum = 0;
     for (size_t i = 0; i < weights_.size(); i++) {
         sum += inputs[i] * weights_[i];
+#if DEBUG
+    std::cout << weights_[i] << " ";
+#endif
     }
+#if DEBUG
+    std::cout << std::endl;
+#endif
 
     return STEP(sum - threshold_);
 }

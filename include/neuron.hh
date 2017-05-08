@@ -14,6 +14,7 @@ class Neuron {
         Neuron(size_t nb_inputs=2);
         virtual double compute(std::vector<double>);
         double learn(Lesson lesson, double alpha=0.1);
+        size_t size_get();
 
     protected:
         std::vector<double> weights_;
