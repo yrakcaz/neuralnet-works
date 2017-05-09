@@ -14,7 +14,7 @@
 * Work with matrices instead?
 * Bias != threshold?
 
-* Learn the XOR (at least) then OCR
+* Learn the XOR (at least) then OCR, Words/Text/Languages
 
 * Replace asserts with exceptions!!
 
